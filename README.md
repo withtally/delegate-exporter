@@ -1,5 +1,3 @@
-Here's your README file with corrections for typos and grammar:
-
 # Retrieve Delegates Cron
 
 - Obtain a code for a cron job and push it to your GitHub (or any other Git provider).
