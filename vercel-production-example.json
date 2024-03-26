@@ -1,0 +1,14 @@
+{
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/api/delegates"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/delegates",
+      "schedule": "*/30 * * * *"
+    }
+  ]
+}
