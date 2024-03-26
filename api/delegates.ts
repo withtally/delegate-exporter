@@ -2,6 +2,8 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAllDelegates } from "../libs/helpers/delegates/getAllDelegates";
 import { put } from "@vercel/blob";
 
+export const maxDuration = 300;
+
 const handler = async (
   req: VercelRequest,
   res: VercelResponse
