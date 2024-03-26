@@ -1,27 +1,36 @@
+Here's your README file with corrections for typos and grammar:
 
 # Retrieve Delegates Cron
 
-- Get a code for a cron job and push it to your GitHub (or any other git provider)
-- Create a Vercel account from your GitHub (or any other git provider) and set up an "Enterprise" subscription to have maximum execution time for serverless functions(Cron jobs)
-- Go to your Vercel account click on "add new"  and select "Project" and you will see a list of existing projects on your GitHub
-- Select the project with the Cron job and click "Import"
+- Obtain a code for a cron job and push it to your GitHub (or any other Git provider).
+- Create a Vercel account from your GitHub (or any other Git provider) and set up an "Enterprise" subscription to maximize the execution time for serverless functions (Cron jobs).
+- Go to your Vercel account, click on "Add New," and select "Project." You will then see a list of existing projects on your GitHub.
+- Select the project containing the Cron job and click "Import."
 
 ## Configure Project
-- Set all Environment Variables you need in "Environment Variables" section and follow the naming belove
+- Set all the environment variables you need in the "Environment Variables" section and follow the naming conventions below:
 ``` 
-    API_ENDPOINT - endpoint to trigger in order to get delegates
-    GOVERNOR_ID - Governor Id
-    ORGANIZATION_ID - Organization Id
-    TALLY_API_KEY - API key to be able to get delegates
+    API_ENDPOINT - Endpoint to trigger to retrieve delegates
+    GOVERNOR_ID - Governor ID
+    ORGANIZATION_ID - Organization ID
+    TALLY_API_KEY - API key required to fetch delegates
 ``` 
-- after variables are set up click deploy
+- After setting the variables, click "Deploy."
 
 ## Storage Configuration
-- Open your newly created project dashboard
-- Click on the storage tab and choose blob and click create
-- Enter a name for your blob and click create
-- Select the environments you want to work with and click Connect
-- Go to the tab Deployments click on three dots on the last deployment and choose "Redeploy" to make storage visible for the project
-- Now when everything is set up go to the storage tab select the blob storage you've created for the project and you can see  "delegates-data.json" file was created
-- click on this file and then click copy the URL and open the URL in a new tab of your browser to see the file
-- You can use the same URL to fetch the file on the front-end part of your application
+- Open your newly created project's dashboard.
+- Click on the 'Storage' tab, choose 'Blob,' and click 'Create.'
+- Enter a name for your blob and click 'Create.'
+- Select the environments you want to work with and click 'Connect.'
+- Go to the 'Settings' tab on the right sidebar, choose 'Environment Variables,' and you will see the 'BLOB_READ_WRITE_TOKEN' variable has been added. 
+- In the 'Deployments' tab, click on the three dots on the last deployment and choose 'Redeploy' to make the storage visible to the project.
+- Once everything is set up, go to the 'Storage' tab, select the blob storage you've created for the project, and you will see that the "delegates-data.json" file has been created.
+- Click on this file, then click 'Copy URL' and open the URL in a new browser tab to view the file.
+- Use the same URL to fetch the file in the front-end part of your application.
+- Add a new environment variable "NEXT_PUBLIC_DELEGATES_FETCH_URL" to your front-end application.
+
+    ```
+    NEXT_PUBLIC_DELEGATES_FETCH_URL="Link to your file"
+    ```
+## Error Handling
+- To prevent a 429 error, increase the limits for your API token.
