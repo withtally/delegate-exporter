@@ -9,6 +9,7 @@ export const getDelegates = async (afterCursor?: string) => {
         filters: {
           governorId: process.env.GOVERNOR_ID,
           organizationId: process.env.ORGANIZATION_ID,
+          isSeekingDelegation: true,
         },
         sort: {
           isDescending: true,
