@@ -11,7 +11,7 @@ export const getAllDelegates = async (afterCursor?: string) => {
       delegates.push(...nodes);
 
       afterCursor = lastCursor;
-    } while (afterCursor && afterCursor.length > 0 && delegates.length < 900);
+    } while (afterCursor && afterCursor.length > 0 && delegates.length < 500);
 
     return delegates;
   } catch (error) {
