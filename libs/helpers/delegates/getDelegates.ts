@@ -30,11 +30,11 @@ export const getDelegates = async (afterCursor?: string) => {
 
   const response = await axios.post(process.env.API_ENDPOINT as string, params, config);
   
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('');
-    }, 200);
-  });
+  // await new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve('');
+  //   }, 200);
+  // });
 
   return {
     nodes: response.data.data.delegates.nodes,
