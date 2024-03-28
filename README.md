@@ -1,11 +1,12 @@
-# Retrieve Delegates Cron
-
+# Delegate exporter
+The cron job is designed for retrieving delegates and storing them in Cloudflare R2 storage
+## Deployment
 - Obtain a code for a cron job and push it to your GitHub (or any other Git provider).
 - Create a Vercel account from your GitHub (or any other Git provider) and set up an "Enterprise" subscription to maximize the execution time for serverless functions (Cron jobs).
 - Go to your Vercel account, click on "Add New," and select "Project." You will then see a list of existing projects on your GitHub.
 - Select the project containing the Cron job and click "Import."
 
-## Configure Project
+### Configure Project
 - Set all the environment variables you need in the "Environment Variables" section and follow the naming conventions below:
 ``` 
     API_ENDPOINT - Endpoint to trigger to retrieve delegates
@@ -32,3 +33,26 @@
     ```
 ## Error Handling
 - To prevent a 429 error, increase the limits for your API token.
+
+## Local development
+
+- **Install CLI globally**
+    ```
+    npm i -g vercel
+    ```
+- **vercel login**
+    ```
+    vercel login
+    ```
+- **To run the project locally run:**
+
+    ```
+    vercel dev 
+    ```
+- **After running the command above you will be asked to**
+    ```
+     Set up and develop path\to\your\file? [Y/n] 
+    ```
+    Type "y" and follow the steps in the console to find and link your project to an instance on Vercel.
+
+    After the project is linked to Vercel running the command ```vercel dev``` will be enough to start local development.
