@@ -2,35 +2,77 @@
 The cron job is designed for retrieving delegates and storing them in Cloudflare R2 storage
 ## Deployment
 - Obtain a code for a cron job and push it to your GitHub (or any other Git provider).
-- Create a Vercel account from your GitHub (or any other Git provider) and set up an "Enterprise" subscription to maximize the execution time for serverless functions (Cron jobs).
-- Go to your Vercel account, click on "Add New," and select "Project." You will then see a list of existing projects on your GitHub.
-- Select the project containing the Cron job and click "Import."
+- Create a Vercel account from your GitHub (or any other Git provider) and set up an `Enterprise` subscription to maximize the execution time for serverless functions (Cron jobs).
+- Go to your Vercel account, click on `Add New`, and select `Project`. You will then see a list of existing projects on your GitHub.
+- Select the project containing the Cron job and click `Import`.
 
 ### Configure Project
-- Set all the environment variables you need in the "Environment Variables" section and follow the naming conventions below:
+- Set all the environment variables you need in the `Environment Variables` section and follow the naming conventions below:
 ``` 
     API_ENDPOINT - Endpoint to trigger to retrieve delegates
     GOVERNOR_ID - Governor ID
     ORGANIZATION_ID - Organization ID
     TALLY_API_KEY - API key required to fetch delegates
 ``` 
-- After setting the variables, click "Deploy."
+- After setting the variables, click `Deploy`.
 
 ## Storage Configuration
-- Open your newly created project's dashboard.
-- Click on the 'Storage' tab, choose 'Blob,' and click 'Create.'
-- Enter a name for your blob and click 'Create.'
-- Select the environments you want to work with and click 'Connect.'
-- Go to the 'Settings' tab on the right sidebar, choose 'Environment Variables,' and you will see the 'BLOB_READ_WRITE_TOKEN' variable has been added. 
-- In the 'Deployments' tab, click on the three dots on the last deployment and choose 'Redeploy' to make the storage visible to the project.
-- Once everything is set up, go to the 'Storage' tab, select the blob storage you've created for the project, and you will see that the "delegates-data.json" file has been created.
-- Click on this file, then click 'Copy URL' and open the URL in a new browser tab to view the file.
-- Use the same URL to fetch the file in the front-end part of your application.
-- Add a new environment variable "NEXT_PUBLIC_DELEGATES_FETCH_URL" to your front-end application.
 
+### Creating bucket
+- Create account on https://www.cloudflare.com/.
+- Navigate to R2 section in the left sidebar.
+- Verify your email.
+- Return to the R2 section enter your credit card details and confirm the subscription.
+- After the subscription is successfully created click `Create bucket`
+- Enter your Bucket name course Automatic location and click `Create` 
+- To make the files in the bucket public go to the `Settings` tab of your bucket.
+- Scroll to the `Public access` section, and find `R2.dev subdomain` then click `allow access` and follow the steps to allow access.
+
+### Creating API Tokens
+- Open `R2` section and click `Manage R2 API Tokens` and then on `Create API Token`.
+- Give a name for your token
+- Select `Object Read & Write` Permissions
+- Click `Create API Token`
+- Save all the information there: `Token value`, `Access Key ID`, `Secret Access Key`, `jurisdiction-specific endpoints`  because you won't be able to see it again
+
+### Adding environment variables to Vercel project
+- Open your Vercel project dashboard and go to the `Settings` tab.
+- Select the `Environmental Variables` section.
+- Select Environmental Variables and add variables as specified below
+
+    ```
+    R2_ENDPOINT="default endpoint"
+    R2_ACCESS_KEY_ID="your Access Key ID"
+    R2_ACCESS_KEY="Secret Access Key"
+    R2_BUCKET_NAME="name of your bucket"
+    ```
+- Redeploy your app to make new variables visible.
+- Go to the `Deployments` tab, find your current production deployment, then click on three dots, and  then click `Redeploy`.
+- After the application is deployed go to the `Project` tab and click on the Screenshot of your app, wait until the execution of the function is finished and a new file should appear in the bucket, this is the file with delegates.
+- Open the file and you will see a `R2.dev URL` This is the URL that you can use to access the file on the Front-end.
+- Use this Environment variable to access the file.
     ```
     NEXT_PUBLIC_DELEGATES_FETCH_URL="Link to your file"
     ```
+
+### Set up CORS Policy
+- Open your R2 bucket, go to the `Setting` tab, and find `CORS Policy`.
+- Click `Add CORS policy` and add all the URLs that will be able to fetch the via link.
+    ```
+    [
+        {
+            "AllowedOrigins": [
+                "http://localhost:4000",
+                "https://https://example.com"
+            ],
+            "AllowedMethods": [
+                "GET"
+            ]
+        }
+    ]
+    ```
+- Save changes and you should be able to access your files via the `R2.dev URL` link.
+
 ## Error Handling
 - To prevent a 429 error, increase the limits for your API token.
 
@@ -53,6 +95,8 @@ The cron job is designed for retrieving delegates and storing them in Cloudflare
     ```
      Set up and develop path\to\your\file? [Y/n] 
     ```
-    Type "y" and follow the steps in the console to find and link your project to an instance on Vercel.
+    Type `y` and follow the steps in the console to find and link your project to an instance on Vercel.
 
     After the project is linked to Vercel running the command ```vercel dev``` will be enough to start local development.
+
+- **To redeploy function push changes to the main branch of your project**
