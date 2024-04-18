@@ -52,7 +52,7 @@ The cron job is designed for retrieving delegates and storing them in Cloudflare
 - Open the file and you will see a `R2.dev URL` This is the URL that you can use to access the file on the Front-end.
 - Use this Environment variable to access the file.
     ```
-    NEXT_PUBLIC_DELEGATES_FETCH_URL="Link to your file"
+    NEXT_PUBLIC_DELEGATES_FETCH_URL="Link to your file with delegates"
     ```
 
 ### Set up CORS Policy
@@ -100,3 +100,20 @@ The cron job is designed for retrieving delegates and storing them in Cloudflare
     After the project is linked to Vercel running the command ```vercel dev``` will be enough to start local development.
 
 - **To redeploy function push changes to the main branch of your project**
+# Merkle Tree Uploader
+## Handler setup
+- After the app is deployed add one more environmental variable and Create a secret key to use as a header to upload the Merkle tree to CDN.
+    ```
+      MERKLE_TREE_LOAD_KEY=<Secret key>
+    ```
+- After the variable is added edeploy your app to make new variables visible.
+- Go to the `Deployments` tab, find your current production deployment, then click on three dots, and  then click `Redeploy`.
+## Merkle Tree Uploading process
+- Open your project on Vercel and take your app domain to use it as a basic URL for endpoint to upload your Merkle tree to CDN
+- Make a post call to the endpoint `<YOUR_DOMAIN>/api/merkleTreeLoader`, add header `merkle_tree_load_key` with the Secret key you set in your Environmental Variables, inside your body pass an `uuid` param, that is uuid of your Merkle tree.
+- After the call is executed a new file should appear in the bucket  `merkle-tree-data.json`
+- Open the file and you will see a `R2.dev URL` This is the URL that you can use to access the file on the Front-end.
+- Use this Environment variable to access the file.
+      ```
+        NEXT_PUBLIC_MERKLE_TREE_FETCH_URL="Link to your file with Merkle Tree"
+      ```
