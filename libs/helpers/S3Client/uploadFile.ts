@@ -9,12 +9,13 @@ const S3 = new S3Client({
   },
 });
 
-export const uploadDelegates = async (bufferData: Buffer) => {
+export const uploadFile = async (bufferData: Buffer, key: string) => {
   const command = new PutObjectCommand({
     Bucket: process.env.R2_BUCKET_NAME,
-    Key: "delegates-data.json",
+    Key: key,
     Body: bufferData,
+    ContentType: "application/json",
   });
 
   return S3.send(command);
-}
+};
