@@ -15,7 +15,7 @@ export const getAllDelegates = async (afterCursor?: string) => {
 
     return delegates;
   } catch (error) {
-    console.log((error as Error).message);
+    console.error((error as Error).message);
     throw new Error('can\'t fetch delegates' )
   }
 };
