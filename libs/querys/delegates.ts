@@ -17,7 +17,6 @@ export const getDelegatesQuery = `
           statement {
             statement
             statementSummary
-            seekingDelegations
             isSeekingDelegation
             issues {
               id
