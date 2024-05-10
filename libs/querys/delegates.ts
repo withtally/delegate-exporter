@@ -15,8 +15,8 @@ export const getDelegatesQuery = `
           votesCount
           delegatorsCount
           statement {
+            statement
             statementSummary
-            seekingDelegations
             isSeekingDelegation
             issues {
               id
