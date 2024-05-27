@@ -1,6 +1,4 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import merkleTreeService from "../libs/services/merkleTree.service";
-import { verifyMerkleTreeKey } from "../libs/helpers/merkleTree/middlewares/verifyMerkleTreeKey";
 import {verifyProofsKey} from "../libs/helpers/proofs/middlewares/verifyProofsKey";
 import proofsService from "../libs/services/proofs.service";
 

@@ -1,6 +1,6 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import axios from "axios";
-import { checkParams } from "../helpers/merkleTree/checkParams";
+import { checkParams } from "../helpers/proofs/checkParams";
 import { uploadFile } from "../helpers/S3Client/uploadFile";
 
 const loadProofs = async (req: VercelRequest, res: VercelResponse) => {
@@ -14,15 +14,7 @@ const loadProofs = async (req: VercelRequest, res: VercelResponse) => {
             `https://api.hedgey.finance/token-claims/proof/${req.body.uuid}`
         );
 
-        let proofs = JSON.stringify({
-            format: proofsResponse.data.format,
-            tree: proofsResponse.data.tree,
-            values: proofsResponse.data.values.map((v: any) => ({
-                value: v.value,
-                treeIndex: v.tree_index,
-            })),
-            leafEncoding: proofsResponse.data.leaf_encoding,
-        });
+        let proofs = JSON.stringify(proofsResponse.data);
 
         const bufferData = Buffer.from(proofs, "utf-8");
 
