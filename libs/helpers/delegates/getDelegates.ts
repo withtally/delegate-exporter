@@ -1,7 +1,10 @@
 import axios from "axios";
 import { getDelegatesQuery } from "../../querys/delegates";
+import { getIsSeekingDelegations } from "./getIsSeekingDelegations";
 
 export const getDelegates = async (afterCursor?: string) => {
+  const isSeekingDelegation = getIsSeekingDelegations();
+  
   const params = {
     query: getDelegatesQuery,
     variables: {
@@ -9,7 +12,7 @@ export const getDelegates = async (afterCursor?: string) => {
         filters: {
           governorId: process.env.GOVERNOR_ID,
           organizationId: process.env.ORGANIZATION_ID,
-          isSeekingDelegation: true,
+          isSeekingDelegation: isSeekingDelegation,
         },
         sort: {
           isDescending: true,
@@ -29,11 +32,15 @@ export const getDelegates = async (afterCursor?: string) => {
     },
   };
 
-  const response = await axios.post(process.env.API_ENDPOINT as string, params, config);
-  
+  const response = await axios.post(
+    process.env.API_ENDPOINT as string,
+    params,
+    config
+  );
+
   await new Promise((resolve) => {
     setTimeout(() => {
-      resolve('');
+      resolve("");
     }, 200);
   });
 

@@ -8,7 +8,10 @@ const exportDelegates = async (res: VercelResponse) => {
     const jsonData = JSON.stringify(data);
     const bufferData = Buffer.from(jsonData, "utf-8");
 
-    await uploadFile(bufferData, 'delegates-data.json');
+    await uploadFile(
+      bufferData,
+      process.env.DELEGATES_JSON_NAME || "delegates-data.json"
+    );
 
     res
       .setHeader("Content-Type", "application/json")
@@ -20,8 +23,8 @@ const exportDelegates = async (res: VercelResponse) => {
       .status(500)
       .json({ messge: "can't upload file" });
   }
-}
+};
 
 export default {
   exportDelegates,
-}
+};
