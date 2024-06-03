@@ -4,7 +4,7 @@ import { getIsSeekingDelegations } from "./getIsSeekingDelegations";
 
 export const getDelegates = async (afterCursor?: string) => {
   const isSeekingDelegation = getIsSeekingDelegations();
-  
+
   const params = {
     query: getDelegatesQuery,
     variables: {
@@ -14,10 +14,7 @@ export const getDelegates = async (afterCursor?: string) => {
           organizationId: process.env.ORGANIZATION_ID,
           isSeekingDelegation: isSeekingDelegation,
         },
-        sort: {
-          isDescending: true,
-          sortBy: "VOTES",
-        },
+        sort: { isDescending: true, sortBy: "votes" },
         page: {
           limit: 20,
           afterCursor,
