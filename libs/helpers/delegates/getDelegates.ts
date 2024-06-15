@@ -14,7 +14,7 @@ export const getDelegates = async (afterCursor?: string) => {
           organizationId: process.env.ORGANIZATION_ID,
           isSeekingDelegation: isSeekingDelegation,
         },
-        sort: { isDescending: true, sortBy: "votes" },
+        sort: { isDescending: true, sortBy: "prioritized" },
         page: {
           limit: 20,
           afterCursor,
