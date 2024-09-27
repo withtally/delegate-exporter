@@ -10,7 +10,7 @@ export const getDelegates = async (afterCursor?: string) => {
     variables: {
       input: {
         filters: {
-          governorId: process.env.GOVERNOR_ID,
+          // governorId: process.env.GOVERNOR_ID,
           organizationId: process.env.ORGANIZATION_ID,
           isSeekingDelegation: isSeekingDelegation,
         },
