@@ -4,6 +4,7 @@ import { uploadFile } from "../helpers/S3Client/uploadFile";
 
 const exportDelegates = async (res: VercelResponse) => {
   try {
+    console.log('time', new Date().toISOString())
     const data = await getAllDelegates();
     const jsonData = JSON.stringify(data);
     const bufferData = Buffer.from(jsonData, "utf-8");
