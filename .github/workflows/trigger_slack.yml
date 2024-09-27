@@ -1,0 +1,37 @@
+name: Pull Request Notification
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - closed
+    branches:
+      - develop
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Slack notification for PR opened/updated
+        if: github.event.action == 'opened' || github.event.action == 'synchronize'
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          payload: |
+            {
+              "text": "📣 *Pull Request Event*\n*Event Type:* ${{ github.event.action }}\n*Repository:* ${{ github.repository }}\n*Author:* ${{ github.actor }}\n*Title:* ${{ github.event.pull_request.title }}\n*URL:* ${{ github.event.pull_request.html_url }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'
+
+      - name: Send Slack notification for PR merged
+        if: github.event.pull_request.merged == true
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          payload: |
+            {
+              "text": "🎉 *Pull Request Merged into Develop*\n*Repository:* ${{ github.repository }}\n*Author:* ${{ github.actor }}\n*Title:* ${{ github.event.pull_request.title }}\n*Merged by:* ${{ github.event.pull_request.merged_by.login }}\n*URL:* ${{ github.event.pull_request.html_url }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'
